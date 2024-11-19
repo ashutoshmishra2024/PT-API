@@ -9,6 +9,7 @@ on:
         description: Component1
         default: false
 
+
       Component2:
         type: boolean
         description: Component2
