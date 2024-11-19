@@ -1,0 +1,52 @@
+
+name: component1
+on : 
+  workflow_call:
+    inputs:
+      jobname:
+        description: Name of job to run
+        type: string
+        required: false
+
+      testtype:
+        description: Type of test to run
+        type: string
+        required: false
+   
+      environment:
+        description: Environment to run test on
+        type: string
+        required: false
+
+jobs: 
+  API:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code to download scripts
+      uses: actions/checkout@v4
+      
+    - name: jobname
+      run:  |
+        pwd
+        ls -la
+        echo "${{ inputs.jobname }}"      
+  UI:
+    needs: API
+    runs-on: windows-latest
+    steps:
+    - name: Checkout code to download scripts
+      uses: actions/checkout@v4
+    - name: testtype
+      run:  |
+        echo "${{ inputs.testtype }}"
+  API2:
+    needs: UI
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code to download scripts
+      uses: actions/checkout@v4
+       
+    - name: environment
+      run:  |
+        echo "${{ inputs.environment }}"
+        sleep 15
